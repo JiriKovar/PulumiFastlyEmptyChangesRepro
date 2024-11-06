@@ -1,0 +1,4 @@
+name: pulumiFastlyRepro2
+main: index.ts
+description: A minimal TypeScript Pulumi program
+runtime: nodejs
