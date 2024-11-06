@@ -6,6 +6,7 @@ import * as pulumi from '@pulumi/pulumi';
 import { Waf } from './waf';
 
 const config = new pulumi.Config();
+const fastlyConfig = new pulumi.Config("fastly");
 const backends: ServiceVclBackend[] = [
   {
     address: 'example.com',
@@ -36,7 +37,7 @@ const waf = new Waf(
     siteName: config.require('sigSciSite'),
     email: config.require('sigSciEmail'),
     authToken: config.requireSecret('sigSciApiKey'),
-    fastlyApiKey: config.requireSecret('fastly:apiKey'),
+    fastlyApiKey: fastlyConfig.requireSecret('apiKey'),
     origins: pulumi.output(backends.map((b) => b.address)),
     serviceId: serviceVcl.id,
   },
